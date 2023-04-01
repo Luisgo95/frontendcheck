@@ -27,6 +27,7 @@ const TablaRegistros = ({ registros, handleEdit, handleDelete, records }) => {
     <table className="table">
       <thead>
         <tr>
+          {/* <th>No</th> */}
           <th>No. Cks</th>
           <th>FACE AMOUNT</th>
           <th>FEE CHARGED</th>
@@ -38,6 +39,8 @@ const TablaRegistros = ({ registros, handleEdit, handleDelete, records }) => {
       <tbody>
         {filteredRecords.map((registro) => (
           <tr key={registro.id}>
+      
+            {/* <td>{registro.id}</td> */}
             <td>{registro.numbercks}</td>
             <td>{registro.faceAmount}</td>
             <td>{Number(registro.feeCharged)*2}</td>

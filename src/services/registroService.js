@@ -22,3 +22,14 @@ export const updateRegistro = async (id, registro) => {
 export const deleteRegistro = async (id) => {
   return await axios.delete(`${API_URL}/${id}`, getAuthHeader());
 };
+
+export const getRegistrosByDate = async (startDate, endDate, idCompany, computerID) => {
+  return await axios.get(`${API_URL}`, {
+    params: {
+      startDate,
+      endDate,
+      idCompany,
+      computerID
+    }
+  });
+};

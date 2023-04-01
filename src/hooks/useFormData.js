@@ -13,7 +13,7 @@ const useFormData = (initialState) => {
   const resetFormData = (newData = initialState) => {
     setFormData((prevState) => ({
         ...newData,
-        // campo5: prevState.campo5,
+         computer_equipment_id: prevState.computer_equipment_id,
       }));
   };
 
