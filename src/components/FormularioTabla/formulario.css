@@ -1,0 +1,10 @@
+.grid-form {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr)!important;
+    gap: 1rem !important;
+  }
+  
+  .grid-form label,
+  .grid-form input {
+    margin-bottom: 0.5rem !important;
+  }
