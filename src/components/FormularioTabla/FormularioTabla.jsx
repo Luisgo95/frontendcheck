@@ -11,8 +11,9 @@ const initialFormData = {
   faceAmount: '',
   feeCharged: '',
   cents: '',
-  computerequiment:'',
+  // computerequiment:'',
   cashOut: 0,
+  computer_equipment_id:''
    };
 
 const FormularioTabla = () => {

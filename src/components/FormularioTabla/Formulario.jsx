@@ -3,31 +3,37 @@ import './formulario'
 // import './App.css';
 import './formulario.css'
 import React, { useState, useEffect } from 'react';
+import useApi2 from '../../hooks/useApiComputerEquiment';
 
 const Formulario = ({ formData, handleFormChange, handleSubmit }) => {
+  const { data,fetchDataCompany} = useApi2();
+
+  // const [selectValue, setSelectValue] = useState('');
   const [selectOptions, setSelectOptions] = useState([]);
+ 
   useEffect(() => {
-    fetchSelectOptions();
+    const userString = sessionStorage.getItem('user');
+    if (userString) {
+      const userObject = JSON.parse(userString);
+      // {company} = userObject
+      console.log("Objeto",userObject.company);
+      fetchDataCompany(userObject.company); 
+    } else {
+      console.log('No user found in sessionStorage');
+    }
+    // if (userObject.company) {
+    //   fetchDataCompany(userObject.company);
+    // }
   }, []);
 
-  const fetchSelectOptions = async () => {
-    try {
-      const response = await fetch('https://your-backend-api/endpoint');
-      const data = await response.json();
-      setSelectOptions(data);
-    } catch (error) {
-      console.error('Error fetching select options:', error);
-    }
-  };
-  // ...
 
   return (
     <form onSubmit={handleSubmit} className="d-flex mb-3">
     <div className="grid-form">
-         <label htmlFor="input1" for="numero">No. Cks</label>
-      <label htmlFor="input2" for="numero">FACE AMOUNT</label>
-      <label htmlFor="input3" for="numero">CENTS</label>
-      <label htmlFor="input4" for="numero">COMPUTER</label>
+         <label htmlFor="input1">No. Cks</label>
+      <label htmlFor="input2">FACE AMOUNT</label>
+      <label htmlFor="input3">CENTS</label>
+      <label htmlFor="input4">COMPUTER</label>
 
 
       <input
@@ -73,11 +79,12 @@ const Formulario = ({ formData, handleFormChange, handleSubmit }) => {
         id="input3"
         name="cents"
         value={formData.cents}
-        onChange
+        // onChange={handleSelectChange}
+        onChange={handleFormChange}
         type="text"
         name="cents"
         value={formData.cents}
-        onChange={handleFormChange}
+        // onChange={handleFormChange}
         className="form-control mr-2"
         placeholder="CENTS"
       />
@@ -93,21 +100,20 @@ const Formulario = ({ formData, handleFormChange, handleSubmit }) => {
         className="custom form-control mr-2"
         placeholder="Campo 5"
       /> */}
-
-     <select
-      name="computerequiment"
-      id="input4"
-      value={formData.computerequiment}
-      onChange={handleFormChange}
-      className="form-control mr-2"
-    >
-      <option value="">Selecciona una opción</option>
-      {selectOptions.map((option) => (
-        <option key={option.id} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
+        <select
+          name="computer_equipment_id"
+          id="input4"
+          value={formData.computer_equipment_id}
+          onChange={handleFormChange}
+          className="form-control mr-2"
+        >
+          <option value="">Selecciona una opción</option>
+          {data.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option.equipment_name}
+            </option>
+          ))}
+        </select>
 
       <button type="submit" className="btn btn-primary">
         Agregar

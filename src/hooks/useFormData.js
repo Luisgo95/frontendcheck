@@ -5,7 +5,9 @@ const useFormData = (initialState) => {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const updatedFormData = { ...formData, [name]: value };
+    console.log('Updated formData:', updatedFormData);
+    setFormData(updatedFormData);
   };
 
   const resetFormData = (newData = initialState) => {

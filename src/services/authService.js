@@ -8,8 +8,10 @@ const loginUser = async (username, password) => {
       username,
       password,
     });
+    console.log("antesDe",response.data)
 
-    if (response.data.accessToken) {
+    if (response.data.token) {
+        console.log("Guardando user",response.data)
       sessionStorage.setItem('user', JSON.stringify(response.data));
     }
 
