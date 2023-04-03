@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:3001/registros';
+const API_URL2 = 'http://localhost:3001/registros';
 
 const getAuthHeader = () => {
   const token = localStorage.getItem('token');
@@ -22,14 +23,14 @@ export const updateRegistro = async (id, registro) => {
 export const deleteRegistro = async (id) => {
   return await axios.delete(`${API_URL}/${id}`, getAuthHeader());
 };
-
 export const getRegistrosByDate = async (startDate, endDate, idCompany, computerID) => {
-  return await axios.get(`${API_URL}`, {
-    params: {
-      startDate,
-      endDate,
-      idCompany,
-      computerID
-    }
-  });
+
+  console.log("fecha",startDate)
+  console.log("endDate",endDate)
+  console.log("idCompany",idCompany)
+  console.log("computerID",computerID)
+  return await axios.get(`${API_URL}/forviewcustom/${idCompany}/${computerID}/${startDate}/${endDate}`, getAuthHeader());
+  
+  // return await axios.get(`${API_URL}/forviewcustom/1/1/2023-04-01/2023-04-01`, getAuthHeader());
 };
+

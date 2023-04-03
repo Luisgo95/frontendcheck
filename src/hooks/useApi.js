@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchRegistros, createRegistro, updateRegistro, deleteRegistro } from '../services/registroService';
+import { fetchRegistros, createRegistro, updateRegistro, deleteRegistro, getRegistrosByDate } from '../services/registroService';
 
 const useApi = () => {
   const [data, setData] = useState([]);
@@ -56,8 +56,22 @@ const useApi = () => {
       setError(error);
     }
   };
+  const fetchRegistrosByDate = async (startDate, endDate, idCompany, computerID) => {
+    setIsLoading(true);
+    try {
+      const response = await getRegistrosByDate(startDate, endDate, idCompany, computerID);
+      console.log("deberia",response)
+      setData(response.data);
+      setError(null);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
 
-  return { data, isLoading, error, addRecord, updateRecord, deleteRecord };
+  return { data, isLoading, error, addRecord, updateRecord, deleteRecord,fetchRegistrosByDate  };
 };
 
 export default useApi;

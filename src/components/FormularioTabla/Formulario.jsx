@@ -6,24 +6,20 @@ import React, { useState, useEffect } from 'react';
 import useApi2 from '../../hooks/useApiComputerEquiment';
 
 const Formulario = ({ formData, handleFormChange, handleSubmit }) => {
-  const { data,fetchDataCompany} = useApi2();
+  const { data, fetchDataCompany } = useApi2();
 
-  // const [selectValue, setSelectValue] = useState('');
   const [selectOptions, setSelectOptions] = useState([]);
- 
+
   useEffect(() => {
     const userString = sessionStorage.getItem('user');
     if (userString) {
       const userObject = JSON.parse(userString);
-      // {company} = userObject
-      console.log("Objeto",userObject.company);
-      fetchDataCompany(userObject.company); 
+      console.log("Objeto", userObject.company);
+      fetchDataCompany(userObject.company);
+      console.log("valores ",data)
     } else {
       console.log('No user found in sessionStorage');
     }
-    // if (userObject.company) {
-    //   fetchDataCompany(userObject.company);
-    // }
   }, []);
 
 
@@ -34,7 +30,8 @@ const Formulario = ({ formData, handleFormChange, handleSubmit }) => {
       <label htmlFor="input2">FACE AMOUNT</label>
       <label htmlFor="input3">CENTS</label>
       <label htmlFor="input4">COMPUTER</label>
-
+      {/* <label htmlFor="startDate">Fecha de inicio</label>
+        <label htmlFor="endDate">Fecha de finalización</label> */}
 
       <input
         type="text"
@@ -114,6 +111,25 @@ const Formulario = ({ formData, handleFormChange, handleSubmit }) => {
             </option>
           ))}
         </select>
+        {/* <input
+          type="date"
+          id="startDate"
+          name="startDate"
+          value={formData.startDate}
+          onChange={handleFormChange}
+          className="form-control mr-2"
+          placeholder="Fecha de inicio"
+        />
+        <input
+          type="date"
+          id="endDate"
+          name="endDate"
+          value={formData.endDate}
+          onChange={handleFormChange}
+          className="form-control mr-2"
+          placeholder="Fecha de finalización"
+        /> */}
+
 
       <button type="submit" className="btn btn-primary">
         Agregar
