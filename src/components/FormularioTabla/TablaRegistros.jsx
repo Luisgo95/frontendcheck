@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { utils, writeFile } from 'xlsx';
 import { format } from 'date-fns';
 const TablaRegistros = ({ registros, handleEdit, handleDelete, records }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  // const [extendedRecords, setExtendedRecords] = useState([]);
+  // const [filteredRecords, setFilteredRecords] = useState([]);
+
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -15,6 +18,7 @@ const TablaRegistros = ({ registros, handleEdit, handleDelete, records }) => {
       calculatedDifference: (Number(registro.faceAmount) - (Number(registro.faceAmount) * Number(registro.percentTable)) - Number(registro.cents)).toFixed(2)
     };
   });
+
 console.log("extendedRecords",extendedRecords)
 console.log("registros",registros)
   const filteredRecords = extendedRecords.filter((record) => {
@@ -31,16 +35,21 @@ console.log("registros",registros)
 
   const exportToExcel = () => {
     const data = [
-      ['ID', 'Numbercks', 'Face Amount', 'Calculated Fee', 'Cents', 'Cash out'],
-      ...filteredRecords.map((registro) => [
-        registro.id,
-        registro.numbercks,
-        registro.faceAmount,
-        registro.calculatedFee,
-        registro.cents,
-        registro.calculatedDifference
+      ['Numbercks', 'Face Amount', 'Calculated Fee', 'Cents', 'Cash out'],
+      ...filteredRecords.map((registro, index) => [
+        1 + index,
+        parseFloat(registro.faceAmount),
+        parseFloat(registro.calculatedFee),
+        parseFloat(registro.cents),
+        parseFloat(registro.calculatedDifference)
       ]),
-      ['', 'Total', totalFaceAmount.toFixed(2), totalCalculatedFee.toFixed(2), totalCents.toFixed(2), totalCalculatedDifference.toFixed(2)]
+      [
+        'Total',
+        parseFloat(totalFaceAmount.toFixed(2)),
+        parseFloat(totalCalculatedFee.toFixed(2)),
+        parseFloat(totalCents.toFixed(2)),
+        parseFloat(totalCalculatedDifference.toFixed(2))
+      ]
     ];
 
     const ws = utils.aoa_to_sheet(data);
@@ -54,8 +63,13 @@ console.log("registros",registros)
   return (
 <div>
 <header>
-        {/* <h1>{storeName} - Check Cashing</h1> */}
-        <h2>{today}</h2>
+<h1>
+    {filteredRecords.length > 0 && filteredRecords[0].name
+      ? filteredRecords[0].name
+      : ' '}{' '}
+    - Check Cashing
+  </h1>
+           <h2>{today}</h2>
       </header>
       <button className="btn btn-primary" onClick={exportToExcel}>
         Exportar a Excel
@@ -81,10 +95,9 @@ console.log("registros",registros)
         </tr>
       </thead>
       <tbody>
-        {filteredRecords.map((registro) => (
-          <tr key={registro.id}>
-      
-          <td>{registro.numbercks}</td>
+      {filteredRecords.map((registro, index) => (
+    <tr key={registro.id}>
+      <td>{1 + index}</td>
           <td>{registro.faceAmount}</td>
           <td>{registro.calculatedFee}</td>
           <td>{registro.cents}</td>
@@ -101,7 +114,7 @@ console.log("registros",registros)
         ))}
           <tr>
     <td>Total</td>
-    <td></td>
+    {/* <td></td> */}
     <td>{totalFaceAmount.toFixed(2)}</td>
     <td>{totalCalculatedFee.toFixed(2)}</td>
     <td>{totalCents.toFixed(2)}</td>

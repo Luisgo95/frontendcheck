@@ -29,9 +29,9 @@ const FormularioTabla = () => {
   
   const currentDate = new Date();
   const formattedDate = formatDate(currentDate);
-  
+  const userString = sessionStorage.getItem('user');
   useEffect(() => {
-    const userString = sessionStorage.getItem('user');
+    
     if (userString) {
       const userObject = JSON.parse(userString);
       console.log("Objeto", userObject.company);
@@ -47,6 +47,9 @@ const FormularioTabla = () => {
     e.preventDefault();
     if (formData.id === null) {
       addRecord(formData);
+      const userObject = JSON.parse(userString);
+      fetchRegistrosByDate(formattedDate, formattedDate, userObject.company,formData.computer_equipment_id);
+
     } else {
       updateRecord(formData.id, formData);
     }

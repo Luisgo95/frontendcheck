@@ -11,7 +11,7 @@ const useApi = () => {
       setIsLoading(true);
       try {
         const response = await fetchRegistros();
-        setData(response.data);
+        // setData(response.data);
         setError(null);
       } catch (error) {
         setError(error);
@@ -26,7 +26,7 @@ const useApi = () => {
   const addRecord = async (record) => {
     try {
       await createRegistro(record);
-      setData((prevData) => [...prevData, record]);
+      // setData((prevData) => [...prevData, record]);
       setError(null);
     } catch (error) {
       setError(error);

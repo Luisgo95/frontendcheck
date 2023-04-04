@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:3001/registros';
-const API_URL2 = 'http://localhost:3001/registros';
 
 const getAuthHeader = () => {
   const token = localStorage.getItem('token');

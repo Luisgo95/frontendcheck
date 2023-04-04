@@ -26,14 +26,14 @@ const Formulario = ({ formData, handleFormChange, handleSubmit }) => {
   return (
     <form onSubmit={handleSubmit} className="d-flex mb-3">
     <div className="grid-form">
-         <label htmlFor="input1">No. Cks</label>
+         {/* <label htmlFor="input1">No. Cks</label> */}
       <label htmlFor="input2">FACE AMOUNT</label>
       <label htmlFor="input3">CENTS</label>
       <label htmlFor="input4">COMPUTER</label>
       {/* <label htmlFor="startDate">Fecha de inicio</label>
         <label htmlFor="endDate">Fecha de finalización</label> */}
 
-      <input
+      {/* <input
         type="text"
         id="input1"
         name="numbercks"
@@ -42,7 +42,7 @@ const Formulario = ({ formData, handleFormChange, handleSubmit }) => {
         onChange={handleFormChange}
         className="form-control mr-2"
         placeholder="No. Cks"
-      />
+      /> */}
       <input
         type="text"
         id="input2"
